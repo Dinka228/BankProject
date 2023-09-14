@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     MDBBtn, MDBInput,
     MDBModal,
@@ -14,12 +14,16 @@ import {useHistory} from "react-router-dom";
 import UserList from "./userList";
 import Scrollbar from "react-scrollbars-custom";
 import {REGISTRATION_ROUTE} from "../../../../utils/consts";
+import {getAccountCards, getAllAccounts} from "../../../../http/userAPI";
 
 const UserData = ({show,onHide}) => {
     const {user} = useContext(Context)
     const {bank} = useContext(Context)
     const history = useHistory()
     const [searchCheck,setSearchCheck]=useState("")
+    useEffect(()=>{
+        getAllAccounts().then(data=>user.setUser(data))
+    },[])
     return (
         <>
             <MDBModal
@@ -63,14 +67,14 @@ const UserData = ({show,onHide}) => {
                         </MDBModalBody>
                         <MDBModalFooter>
                             <MDBBtn color="secondary" onClick={()=>{
-                                user.setCurrentUser({})
+                                user.setSelectUser({})
                                 onHide()
                                 user.setAdminPanel(true)
                             }}>
                                 Return to Menu
                             </MDBBtn>
                             <MDBBtn color="secondary" onClick={()=>{
-                                user.setCurrentUser({})
+                                user.setSelectUser({})
                                 onHide()
                             }}>
                                 Close

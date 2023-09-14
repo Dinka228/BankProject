@@ -35,12 +35,21 @@ const SignUp = observer(() => {
                 newUsers.lastName,newUsers.dateOfBirth,
                 newUsers.address,newUsers.contactNumber)
             console.log(response)
-            user.setUser(response)
-            user.setIsAuth(true)
+            if(user.isAuth){
+
+
+            }else{
+                user.setCurrentUser(response)
+                user.setIsAuth(true)
+            }
+
         }
         reg()
         setNewUser({email:"",password: "",firstName: "",lastName: "",dateOfBirth: "",address: "",contactNumber: ''})
-        // history.push(MAIN_ROUTE)
+        if(user.currentUser.role === 'ADMIN'){
+            user.setAdminPanel(true)
+        }
+        history.push(MAIN_ROUTE)
     }
     return (
         <MDBContainer fluid>

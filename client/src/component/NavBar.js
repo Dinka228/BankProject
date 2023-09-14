@@ -36,8 +36,20 @@ const NavBar = observer(() => {
             <MDBContainer fluid>
                 <MDBNavbarBrand style={{cursor:"pointer"}}>BankProject</MDBNavbarBrand>
                 {
-                    user.isAuth ? <MDBNavbarBrand className='m-auto' style={{cursor:"pointer"}}>Sign out</MDBNavbarBrand> :
+                    user.isAuth ? <MDBNavbarBrand className='m-auto' style={{cursor:"pointer"}} onClick={()=>{
+                            user.setIsAuth(false)
+                            history.push(LOGIN_ROUTE)
+                        }
+                        }>Sign out</MDBNavbarBrand> :
                         <div className='d-flex flex-row'>
+                            {/*{*/}
+                            {/*    user.currentUser.role === 'ADMIN' ?*/}
+                            {/*        <MDBNavbarBrand  style={{cursor:"pointer"}} onClick={()=>{*/}
+                            {/*            user.setAdminPanel(true)*/}
+                            {/*        }*/}
+                            {/*        }>AdminPanel</MDBNavbarBrand>*/}
+                            {/*        :<div></div>*/}
+                            {/*}*/}
                             <MDBNavbarBrand  style={{cursor:"pointer"}} onClick={()=>{
                                 user.setAdminPanel(true)
                             }

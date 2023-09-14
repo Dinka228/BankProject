@@ -17,26 +17,26 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {useHistory} from "react-router-dom";
 import {MAIN_ROUTE} from "../utils/consts";
+import {signIn} from "../http/userAPI";
 
 const SignIn = observer(() => {
     const [User, setUser] = useState({email:"",password:""})
     const {user} = useContext(Context)
-    const {projects} = useContext(Context)
+    const {bank} = useContext(Context)
     const history = useHistory()
-    // const signIn = (e) =>{
-    //     const Users={
-    //         ...User
-    //
-    //     }
-    //     const log = async ()=>{
-    //         const response = await login(Users.email,Users.password)
-    //         user.setCurrentUser(response)
-    //         user.setIsAuth(true)
-    //         console.log(user.currUser.role)
-    //         history.push(PROJECTS_ROUTE)
-    //     }
-    //     log()
-    // }
+    const sign = (e) =>{
+        const Users={
+            ...User
+
+        }
+        const log = async ()=>{
+            const response = await signIn(Users.email,Users.password)
+            user.setCurrentUser(response)
+            user.setIsAuth(true)
+            history.push(MAIN_ROUTE)
+        }
+        log()
+    }
     return (
         <MDBContainer fluid>
 
@@ -63,6 +63,7 @@ const SignIn = observer(() => {
                             </div>
 
                             <MDBBtn className='mb-4' color={"dark"} size={"lg"} onClick={()=>{
+                                sign()
                                 history.push(MAIN_ROUTE)
                             }
                             }>Sign in</MDBBtn>

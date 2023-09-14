@@ -12,6 +12,9 @@ import {
 } from "mdb-react-ui-kit";
 import {Context} from "../../../index";
 import {useHistory} from "react-router-dom";
+import {getAllAccounts} from "../../../http/userAPI";
+import {getAllCards} from "../../../http/cardsAPI";
+import {getAllTransactions} from "../../../http/transactionsAPI";
 
 const AdminPanel = ({show,onHide}) => {
     const {user} = useContext(Context)
@@ -39,6 +42,7 @@ const AdminPanel = ({show,onHide}) => {
                                 User Data
                             </MDBBtn>
                             <MDBBtn color="info" className='m-2' onClick={()=>{
+                                getAllCards().then(data=>bank.setCards(data))
                                 user.setCardsList(true)
                                 onHide()
                             }
@@ -46,6 +50,7 @@ const AdminPanel = ({show,onHide}) => {
                                 Card Data
                             </MDBBtn>
                             <MDBBtn color="info" className='m-2' onClick={()=>{
+                                getAllTransactions().then(data=>bank.setTransactions(data))
                                 user.setTransactionsList(true)
                                 onHide()
                             }

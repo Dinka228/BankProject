@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     MDBCol,
     MDBContainer,
@@ -30,11 +30,17 @@ import TransactionsData from "../component/modal/adminPanel/transactions/transac
 import CurrentUsersCards from "../component/modal/adminPanel/cards/currentUsersCards";
 import CurrentCardTransactions from "../component/modal/adminPanel/transactions/currentCardTransactions";
 import {observer} from "mobx-react-lite";
+import {getAccountByEmail, getAccountCards} from "../http/userAPI";
+import UpdateDataUser from "../component/modal/updateDataUser";
 
 const Main = observer(() => {
     const {user} = useContext(Context)
     const {bank} = useContext(Context)
     const [selectCardVisible,setSelectCardVisible] = useState(false)
+    useEffect(()=>{
+        getAccountByEmail(user.currentUser.email).then(data=>user.setCurrentUser(data))
+        getAccountCards(user.currentUser.id).then(data=>bank.setCards(data))
+    },[])
     return (
         <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">
@@ -64,9 +70,9 @@ const Main = observer(() => {
                                     className="rounded-circle"
                                     style={{ width: '150px' }}
                                     fluid />
-                                <p>FullName</p>
+                                <p>{user.currentUser.firstName}</p>
                                 <div className="d-flex justify-content-center mb-2">
-                                    <MDBBtn className='mt-4'>Update Profile Data</MDBBtn>
+                                    <MDBBtn className='mt-4' onClick={()=>user.setUpdateDataUser(true)}>Update Profile Data</MDBBtn>
                                 </div>
                             </MDBCardBody>
                         </MDBCard>
@@ -81,7 +87,7 @@ const Main = observer(() => {
                                         <MDBCardText>First Name</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">Johnatan</MDBCardText>
+                                        <MDBCardText className="text-muted">{user.currentUser.firstName}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -90,7 +96,7 @@ const Main = observer(() => {
                                         <MDBCardText>Last Name</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">Smith</MDBCardText>
+                                        <MDBCardText className="text-muted">{user.currentUser.lastName}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -99,7 +105,7 @@ const Main = observer(() => {
                                         <MDBCardText>Email</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                                        <MDBCardText className="text-muted">{user.currentUser.email}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -108,7 +114,7 @@ const Main = observer(() => {
                                         <MDBCardText>Phone</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                                        <MDBCardText className="text-muted">{user.currentUser.contactNumber}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                                 <hr />
@@ -117,7 +123,7 @@ const Main = observer(() => {
                                         <MDBCardText>Address</MDBCardText>
                                     </MDBCol>
                                     <MDBCol sm="9">
-                                        <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                                        <MDBCardText className="text-muted">{user.currentUser.address}</MDBCardText>
                                     </MDBCol>
                                 </MDBRow>
                             </MDBCardBody>
@@ -125,6 +131,7 @@ const Main = observer(() => {
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
+            <UpdateDataUser show={user.updateDataUser} onHide={()=>{user.setUpdateDataUser(false)}}/>
             <SelectCard show={selectCardVisible} onHide={()=>{setSelectCardVisible(false)}} />
             <AdminPanel show={user.adminPanel} onHide={()=>{user.setAdminPanel(false)}} />
             <CreateCard show={user.createCard} onHide={()=>{user.setCreateCard(false)}} />

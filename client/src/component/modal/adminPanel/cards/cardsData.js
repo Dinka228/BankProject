@@ -32,7 +32,7 @@ const CardsData = ({show,onHide}) => {
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
-                            <MDBModalTitle>{user.currentUser.lastName ? `${user.currentUser.lastName} Cards` : 'Cards Data'}</MDBModalTitle>
+                            <MDBModalTitle>{user.selectUser.lastName ? `${user.selectUser.lastName} Cards` : 'Cards Data'}</MDBModalTitle>
                         </MDBModalHeader>
                         <MDBModalBody>
                             <Scrollbar style={{ height: 250 }} noScrollX={true}>
@@ -46,8 +46,8 @@ const CardsData = ({show,onHide}) => {
                                 {/*</MDBInput>*/}
                                 {
                                     bank.cards.filter(card=>{
-                                        if(user.currentUser.lastName){
-                                            if(+card.userId === +user.currentUser.id){
+                                        if(user.selectUser.lastName){
+                                            if(+card.userId === +user.selectUser.id){
                                                 return card
                                             }
                                         }
@@ -64,14 +64,14 @@ const CardsData = ({show,onHide}) => {
                         </MDBModalBody>
                         <MDBModalFooter>
                             <MDBBtn color="secondary" onClick={()=>{
-                                user.setCurrentUser({})
+                                user.setSelectUser({})
                                 onHide()
                                 user.setAdminPanel(true)
                             }}>
                                 Return to Menu
                             </MDBBtn>
                             <MDBBtn color="secondary" onClick={()=>{
-                                user.setCurrentUser({})
+                                user.setSelectUser({})
                                 onHide()
                             }}>
                                 Close

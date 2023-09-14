@@ -12,8 +12,10 @@ export default class UserStore {
         this._createCard = false
         this._services = false
         this._currentUserCard = false
+        this._updateDataUser = false
         this._currentCardTransactions = false
         this._currentUser = {}
+        this._selectUser = {}
         this._currentCard = {}
         this._role = ''
         this._user = [{id:1,firstName:'Danylo',lastName:'Vlasenko',address:'dfsfsdfdsf',contactNumber:380631779644,blocked:false},
@@ -22,6 +24,12 @@ export default class UserStore {
             {id:4,firstName:'Alina',lastName:'Makarova',address:'yutyutyu',contactNumber:380671849634,blocked:false},
             {id:5,firstName:'Yura',lastName:'Mylomel',address:'qqewqeq',contactNumber:380131769624,blocked:false},]
         makeAutoObservable(this)
+    }
+    setUpdateDataUser(updateDataUser){
+        this._updateDataUser = updateDataUser
+    }
+    get updateDataUser(){
+        return this._updateDataUser
     }
     setCurrentCard(currentCard){
         this._currentCard = currentCard
@@ -34,6 +42,12 @@ export default class UserStore {
     }
     get currentUser(){
         return this._currentUser
+    }
+    setSelectUser(selectUser){
+        this._selectUser = selectUser
+    }
+    get selectUser(){
+        return this._selectUser
     }
     setCurrentCardTransactions(bool){
         this._currentCardTransactions = bool

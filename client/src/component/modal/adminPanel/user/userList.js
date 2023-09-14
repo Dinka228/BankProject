@@ -15,6 +15,7 @@ import {CARDS_ROUTE} from "../../../../utils/consts";
 import {Context} from "../../../../index";
 import {useHistory} from "react-router-dom";
 import {observer} from "mobx-react-lite";
+import {activeAccount, blockAccount, deleteAccount, getAccountCards, getAllAccounts} from "../../../../http/userAPI";
 
 const UserList = observer(({users}) => {
     const {user} = useContext(Context)
@@ -35,7 +36,8 @@ const UserList = observer(({users}) => {
 
             <div className="m-lg-auto">
                 <MDBBtn style={{width:110}} color={"info"} onClick={()=>{
-                    user.setCurrentUser(users)
+                    getAccountCards(user.currentUser.id).then(data=>bank.setCards(data))
+                    user.setSelectUser(users)
                     user.setUserList(false)
                     user.setCardsList(true)
                 }
@@ -43,11 +45,23 @@ const UserList = observer(({users}) => {
             </div>
             <div className="m-lg-auto" >
                 {!users.blocked ?
-                    <MDBBtn style={{width:110}} className=' m-2' color={"danger"}>Block</MDBBtn>
+                    <MDBBtn style={{width:110}} className=' m-2' color={"danger"} onClick={()=>{
+                             blockAccount(users.id).then()
+                        getAllAccounts().then(data=>user.setUser(data))
+                    }
+                    }>Block</MDBBtn>
                     :
-                    <MDBBtn style={{width:110}} className=' m-2' color={"success"}>UnBlock</MDBBtn>
+                    <MDBBtn style={{width:110}} className=' m-2' color={"success"} onClick={()=>{
+                        activeAccount(users.id).then()
+                        getAllAccounts().then(data=>user.setUser(data))
+                    }
+                    }>UnBlock</MDBBtn>
                 }
-                <MDBBtn style={{width:110}} className='mt-2 m-2' color={"danger"}>Delete</MDBBtn>
+                <MDBBtn style={{width:110}} className='mt-2 m-2' color={"danger"} onClick={()=>{
+                    deleteAccount(users.id).then()
+                    getAllAccounts().then(data=>user.setUser(data))
+                }
+                }>Delete</MDBBtn>
             </div>
 
 
