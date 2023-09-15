@@ -17,7 +17,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {useHistory} from "react-router-dom";
 import {MAIN_ROUTE} from "../utils/consts";
-import {signIn} from "../http/userAPI";
+import {getAccountByEmail, signIn} from "../http/userAPI";
 
 const SignIn = observer(() => {
     const [User, setUser] = useState({email:"",password:""})
@@ -30,8 +30,8 @@ const SignIn = observer(() => {
 
         }
         const log = async ()=>{
-            const response = await signIn(Users.email,Users.password)
-            user.setCurrentUser(response)
+            const response = await signIn(Users.email,Users.password).then(data=>console.log())
+            getAccountByEmail(response.sub).then(data=>user.setCurrentUser(data))
             user.setIsAuth(true)
             history.push(MAIN_ROUTE)
         }

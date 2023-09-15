@@ -128,7 +128,7 @@ const UpdateDataUser = ({show,onHide}) => {
                         <MDBModalFooter>
                             <MDBBtn color="secondary" onClick={()=>{
                                 console.log(user.createCard)
-                                user.setCreateCard(false)
+                                onHide()
                             }}>
                                 Close
                             </MDBBtn>

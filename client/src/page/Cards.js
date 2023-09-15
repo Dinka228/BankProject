@@ -48,9 +48,9 @@ const Cards = observer(() => {
     const [PIN,setPIN] = useState({amount:''})
     const [transactionsData,setTransactionsData] = useState({transactionDate:"",amount:"",description:"",
         transactionType:"",startTime:"",senderCard:"",receiverCard:""})
-    useEffect(()=>{
-        getUserCardTransactions(user.currentUser.id,bank.selectCard.id,user.currentUser.id).then(data=>bank.setTransactions(data))
-    },[])
+    // useEffect(()=>{
+    //     getUserCardTransactions(user.currentUser.id,bank.selectCard.id,user.currentUser.id).then(data=>bank.setTransactions(data))
+    // },[])
 
 
     function addNewTransactions(){

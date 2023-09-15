@@ -21,9 +21,9 @@ const UserData = ({show,onHide}) => {
     const {bank} = useContext(Context)
     const history = useHistory()
     const [searchCheck,setSearchCheck]=useState("")
-    useEffect(()=>{
-        getAllAccounts().then(data=>user.setUser(data))
-    },[])
+    // useEffect(()=>{
+    //     getAllAccounts().then(data=>user.setUser(data))
+    // },[])
     return (
         <>
             <MDBModal

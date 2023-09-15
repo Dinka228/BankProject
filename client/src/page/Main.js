@@ -37,10 +37,10 @@ const Main = observer(() => {
     const {user} = useContext(Context)
     const {bank} = useContext(Context)
     const [selectCardVisible,setSelectCardVisible] = useState(false)
-    useEffect(()=>{
-        getAccountByEmail(user.currentUser.email).then(data=>user.setCurrentUser(data))
-        getAccountCards(user.currentUser.id).then(data=>bank.setCards(data))
-    },[])
+    // useEffect(()=>{
+    //     getAccountByEmail(user.currentUser.email).then(data=>user.setCurrentUser(data))
+    //     getAccountCards(user.currentUser.id).then(data=>bank.setCards(data))
+    // },[])
     return (
         <section style={{ backgroundColor: '#eee' }}>
             <MDBContainer className="py-5">

@@ -12,38 +12,38 @@ export const signIn = async(email,password)=>{
     return jwt_decode(data.token)
 }
 export const getAllAccounts = async()=>{
-    const {data} = await $host.get('/accounts')
+    const {data} = await $authHost.get('/accounts')
     return data
 }
 export const getAccountById = async(id)=>{
-    const {data} = await $host.get(`/accounts/${id}`)
+    const {data} = await $authHost.get(`/accounts/${id}`)
     return data
 }
 export const getAccountByEmail = async(email)=>{
-    const {data} = await $host.get(`/accounts/profile`,email)
+    const {data} = await $authHost.get(`/accounts/profile`,email)
     return data
 }
 export const createAccount = async(email,password,firstName,lastName,dateOfBirth,address,contactNumber)=>{
-    const {data} = await $host.post(`/accounts`, {email,password,firstName,lastName,dateOfBirth,address,contactNumber})
+    const {data} = await $authHost.post(`/accounts`, {email,password,firstName,lastName,dateOfBirth,address,contactNumber})
     return data
 }
 export const updateAccount = async(id,email,password,firstName,lastName,dateOfBirth,address,contactNumber)=>{
-    const {data} = await $host.put(`/accounts/${id}`, {email,password,firstName,lastName,dateOfBirth,address,contactNumber})
+    const {data} = await $authHost.put(`/accounts/${id}`, {email,password,firstName,lastName,dateOfBirth,address,contactNumber})
     return data
 }
 export const deleteAccount = async(id)=>{
-    const {data} = await $host.delete(`/accounts/${id}`)
+    const {data} = await $authHost.delete(`/accounts/${id}`)
     return data
 }
 export const blockAccount = async(id)=>{
-    const {data} = await $host.put(`/accounts/${id}/block`)
+    const {data} = await $authHost.put(`/accounts/${id}/block`)
     return data
 }
 export const activeAccount = async(id)=>{
-    const {data} = await $host.put(`/accounts/${id}/activate`)
+    const {data} = await $authHost.put(`/accounts/${id}/activate`)
     return data
 }
 export const getAccountCards = async(id)=>{
-    const {data} = await $host.get(`/accounts/${id}/cards`,id)
+    const {data} = await $authHost.get(`/accounts/${id}/cards`,id)
     return data
 }
